@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="col-xs-12">
+    <img src="" alt="" class="">
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <h1>Recipe Name</h1>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    <button mat-raised-button color="primary" [matMenuTriggerFor]="menu" aria-label="button with a recipe menu">
+      Manage Recipe
+      <mat-icon>expand_more</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <mat-icon>add</mat-icon>
+        <span>Add ingredients to Shopping list</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>edit</mat-icon>
+        <span>Edit recipe</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>delete</mat-icon>
+        <span>Delete recipe</span>
+      </button>
+    </mat-menu>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+    Description
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    Ingredients
+  </div>
+</div>

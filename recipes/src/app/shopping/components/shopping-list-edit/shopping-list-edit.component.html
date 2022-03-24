@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="col-xs-12">
+    <form>
+      <div class="row">
+        <div class="col-sm-5">
+          <mat-form-field appearance="fill">
+            <mat-label>Name</mat-label>
+            <input matInput placeholder="Enter ingredient name: " autocomplete="off" required>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-2">
+          <mat-form-field appearance="fill">
+            <mat-label>Amount</mat-label>
+            <input type="number" matInput placeholder="Amount of ingredients: " autocomplete="off" required>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="buttons">
+            <button mat-raised-button [color]="'primary'" type="submit">Add</button>
+            <button mat-raised-button [color]="'warn'" type="submit">Delete</button>
+            <button mat-raised-button [color]="'accent'" type="submit">Clear</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

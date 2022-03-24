@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="col-xs-12">
+    <button class="button" mat-raised-button [color]="'primary'">New Recipe</button>
+  </div>
+</div>
+
+<mat-divider></mat-divider>
+
+<div class="row">
+  <div class="col-xs-12">
+    <mat-card class="card" *ngFor="let recipe of recipes; let index = index" [tabIndex]="index">
+      <mat-card-title-group>
+        <mat-card-title>{{ recipe.name }}</mat-card-title>
+        <mat-card-subtitle>{{ recipe.description }}</mat-card-subtitle>
+        <img mat-card-sm-image [src]="recipe.imagePath" [alt]="recipe.name + ' image'">
+      </mat-card-title-group>
+    </mat-card>
+    <app-recipe-item></app-recipe-item>
+  </div>
+</div>
+
