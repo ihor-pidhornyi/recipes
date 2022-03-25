@@ -1,4 +1,6 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
+import {Recipe} from "../../models/recipe.model";
+import {RecipesService} from "../../recipes.service";
 
 @Component({
   selector: 'app-recipe-item',
@@ -7,11 +9,17 @@ import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RecipeItemComponent implements OnInit {
+  @Input() recipe: Recipe | undefined
 
-  constructor() {
+  constructor(private recipesService: RecipesService) {
   }
 
   ngOnInit(): void {
   }
 
+  public selectRecipe(): void {
+    if (this.recipe) {
+      this.recipesService.selectRecipe(this.recipe)
+    }
+  }
 }

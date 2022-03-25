@@ -1,4 +1,5 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
+import {Recipe} from "../../models/recipe.model";
 
 @Component({
   selector: 'app-recipe-detail',
@@ -7,6 +8,7 @@ import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RecipeDetailComponent implements OnInit {
+  @Input() recipe: Recipe | undefined
 
   constructor() {
   }

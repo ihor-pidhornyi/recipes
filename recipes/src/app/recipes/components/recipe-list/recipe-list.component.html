@@ -6,16 +6,14 @@
 
 <mat-divider></mat-divider>
 
-<div class="row">
-  <div class="col-xs-12">
-    <mat-card class="card" *ngFor="let recipe of recipes; let index = index" [tabIndex]="index">
-      <mat-card-title-group>
-        <mat-card-title>{{ recipe.name }}</mat-card-title>
-        <mat-card-subtitle>{{ recipe.description }}</mat-card-subtitle>
-        <img mat-card-sm-image [src]="recipe.imagePath" [alt]="recipe.name + ' image'">
-      </mat-card-title-group>
-    </mat-card>
-    <app-recipe-item></app-recipe-item>
+<ng-container *ngIf="recipes$ | async as recipes">
+  <div class="row">
+    <div class="col-xs-12">
+      <app-recipe-item
+        *ngFor="let recipe of recipes; trackBy: trackByFn"
+        [recipe]="recipe"
+        class="card-container"
+      ></app-recipe-item>
+    </div>
   </div>
-</div>
-
+</ng-container>

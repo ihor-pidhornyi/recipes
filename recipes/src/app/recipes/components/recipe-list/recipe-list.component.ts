@@ -1,5 +1,7 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {Recipe} from "../../models/recipe.model";
+import {Observable} from "rxjs";
+import {RecipesService} from "../../recipes.service";
 
 @Component({
   selector: 'app-recipe-list',
@@ -8,18 +10,16 @@ import {Recipe} from "../../models/recipe.model";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RecipeListComponent implements OnInit {
-  recipes: Recipe[] = [
-    {
-      name: 'A Test recipe',
-      description: 'This is simply a test',
-      imagePath: 'https://www.hellomagazine.com/imagenes/cuisine/20210211106689/pancake-day-recipes-sweet-savoury/0-514-409/pancake-day-z.jpg'
-    },
-  ];
+  public recipes$: Observable<Recipe[]> | undefined
 
-  constructor() {
+  constructor(private recipesService: RecipesService) {
   }
 
   ngOnInit(): void {
+    this.recipes$ = this.recipesService.getRecipes$()
   }
 
+  public trackByFn(index: number): number {
+    return index
+  }
 }

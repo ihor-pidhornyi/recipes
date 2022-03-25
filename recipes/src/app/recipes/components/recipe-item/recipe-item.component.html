@@ -1,1 +1,9 @@
-<p>recipe-item works!</p>
+<ng-container *ngIf="recipe">
+  <mat-card class="card" (click)="selectRecipe()">
+    <mat-card-title-group>
+      <mat-card-title>{{ recipe.name }}</mat-card-title>
+      <mat-card-subtitle>{{ recipe.description }}</mat-card-subtitle>
+      <img mat-card-sm-image [src]="recipe.imagePath" [alt]="recipe.name + ' image'">
+    </mat-card-title-group>
+  </mat-card>
+</ng-container>

@@ -1,5 +1,8 @@
-<mat-card class="card" *ngFor="let ingredient of ingredients; let index = index" [tabIndex]="index">
-  <mat-card-title-group>
-    <mat-card-title>{{ ingredient.name }} ({{ ingredient.amount }})</mat-card-title>
-  </mat-card-title-group>
-</mat-card>
+<ng-container *ngIf="ingredients$ | async as ingredients">
+  <mat-card class="card" *ngFor="let ingredient of ingredients; let index = index" [tabIndex]="index">
+    <mat-card-title-group>
+      <mat-card-title>{{ ingredient.name }} ({{ ingredient.amount }})</mat-card-title>
+    </mat-card-title-group>
+  </mat-card>
+</ng-container>
+

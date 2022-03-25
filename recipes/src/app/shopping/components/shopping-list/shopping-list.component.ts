@@ -1,5 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {Ingredient} from "../../../shared/models/ingredient.model";
+import {Observable, of} from "rxjs";
+import {ShoppingService} from "../../shopping.service";
 
 @Component({
   selector: 'app-shopping-list',
@@ -8,15 +10,13 @@ import {Ingredient} from "../../../shared/models/ingredient.model";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ShoppingListComponent implements OnInit {
-  ingredients: Ingredient[] = [
-    { name: 'Apples', amount: 5 },
-    { name: 'Tomatoes', amount: 10 },
-  ]
+  public ingredients$: Observable<Ingredient[]> | undefined
 
-  constructor() {
+  constructor(private shoppingService: ShoppingService) {
   }
 
   ngOnInit(): void {
+    this.ingredients$ = this.shoppingService.getIngredients$()
   }
 
 }
