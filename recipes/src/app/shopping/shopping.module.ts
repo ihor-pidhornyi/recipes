@@ -9,6 +9,7 @@ import {MatCardModule} from "@angular/material/card";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
 import {MatDividerModule} from "@angular/material/divider";
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import {MatDividerModule} from "@angular/material/divider";
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     MatCardModule,
     MatInputModule,
     MatButtonModule,
