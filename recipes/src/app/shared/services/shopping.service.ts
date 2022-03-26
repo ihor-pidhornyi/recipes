@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Ingredient} from "../shared/models/ingredient.model";
+import {Ingredient} from "../models/ingredient.model";
 import {BehaviorSubject, Observable, of} from "rxjs";
 
 @Injectable({
@@ -21,5 +21,10 @@ export class ShoppingService {
   public addIngredient(ingredient: Ingredient): void {
     const previousIngredients = this.ingredients$.value
     this.ingredients$.next([...previousIngredients, ingredient])
+  }
+
+  public addIngredients(ingredients: Ingredient[]): void {
+    const previousIngredients = this.ingredients$.value
+    this.ingredients$.next([...previousIngredients, ...ingredients])
   }
 }

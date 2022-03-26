@@ -11,6 +11,7 @@ import {AppComponent} from './app.component';
 import {HeaderComponent} from './shared/header/header.component';
 import {RouterModule} from "@angular/router";
 import {MatMenuModule} from "@angular/material/menu";
+import {MatTabsModule} from "@angular/material/tabs";
 
 const AngularModules = [
   BrowserModule,
@@ -23,6 +24,7 @@ const MaterialModules = [
   MatButtonModule,
   MatIconModule,
   MatMenuModule,
+  MatTabsModule,
 ]
 
 @NgModule({
@@ -32,8 +34,8 @@ const MaterialModules = [
   ],
   imports: [
     ...AngularModules,
-    AppRoutingModule,
     ...MaterialModules,
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

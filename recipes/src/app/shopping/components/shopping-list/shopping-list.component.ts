@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {Ingredient} from "../../../shared/models/ingredient.model";
 import {Observable, of} from "rxjs";
-import {ShoppingService} from "../../shopping.service";
+import {ShoppingService} from "../../../shared/services/shopping.service";
 
 @Component({
   selector: 'app-shopping-list',

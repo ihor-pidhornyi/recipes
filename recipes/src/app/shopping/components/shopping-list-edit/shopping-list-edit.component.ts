@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {ShoppingService} from "../../shopping.service";
+import {ShoppingService} from "../../../shared/services/shopping.service";
 import {Ingredient} from "../../../shared/models/ingredient.model";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 

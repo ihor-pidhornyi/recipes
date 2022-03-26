@@ -27,12 +27,12 @@ mat-toolbar {
   }
 
   &__link {
-    font-size: 1rem;
+    font-size: 0.875rem;
     text-decoration: none;
-    color: var(--accent);
+    color: #fff;
 
     &_active {
-      color: #b0b0b0;
+      color: #4cdeff;
     }
   }
 

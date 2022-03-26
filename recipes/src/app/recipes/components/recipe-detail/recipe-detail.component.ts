@@ -1,5 +1,6 @@
 import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {Recipe} from "../../models/recipe.model";
+import {ShoppingService} from "../../../shared/services/shopping.service";
 
 @Component({
   selector: 'app-recipe-detail',
@@ -10,10 +11,16 @@ import {Recipe} from "../../models/recipe.model";
 export class RecipeDetailComponent implements OnInit {
   @Input() recipe: Recipe | undefined
 
-  constructor() {
+  constructor(private shoppingService: ShoppingService) {
   }
 
   ngOnInit(): void {
+  }
+
+  public addToShoppingList() {
+    if(this.recipe?.ingredients) {
+      this.shoppingService.addIngredients(this.recipe?.ingredients)
+    }
   }
 
 }

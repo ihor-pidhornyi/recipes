@@ -11,6 +11,7 @@ import {MatCardModule} from "@angular/material/card";
 import {MatDividerModule} from "@angular/material/divider";
 import {MatIconModule} from "@angular/material/icon";
 import {MatMenuModule} from "@angular/material/menu";
+import {MatChipsModule} from "@angular/material/chips";
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import {MatMenuModule} from "@angular/material/menu";
     MatDividerModule,
     MatIconModule,
     MatMenuModule,
+    MatChipsModule,
     RecipesRoutingModule
   ]
 })
