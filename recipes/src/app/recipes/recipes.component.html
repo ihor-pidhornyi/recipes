@@ -3,12 +3,6 @@
     <app-recipe-list></app-recipe-list>
   </div>
   <div class="col-md-7 col-sm-12 col-xs-12">
-    <ng-container *ngIf="selectedRecipe$ | async as selectedRecipe; else noSelectedRecipe">
-      <app-recipe-detail [recipe]="selectedRecipe"></app-recipe-detail>
-    </ng-container>
+    <router-outlet></router-outlet>
   </div>
 </div>
-
-<ng-template #noSelectedRecipe>
-  <div>You haven't selected recipe yet</div>
-</ng-template>

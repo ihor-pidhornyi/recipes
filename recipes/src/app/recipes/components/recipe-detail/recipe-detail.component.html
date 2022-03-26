@@ -1,4 +1,4 @@
-<ng-container *ngIf="recipe">
+<ng-container *ngIf="recipe$ | async as recipe">
   <div class="row">
     <div class="col-xs-12">
       <img [src]="recipe.imagePath" [alt]="recipe.name" class="recipe-img">
@@ -16,11 +16,11 @@
         <mat-icon>expand_more</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="addToShoppingList()">
+        <button mat-menu-item (click)="addToShoppingList(recipe)">
           <mat-icon>add</mat-icon>
           <span>Add ingredients to Shopping list</span>
         </button>
-        <button mat-menu-item>
+        <button mat-menu-item (click)="onEditRecipe()">
           <mat-icon>edit</mat-icon>
           <span>Edit recipe</span>
         </button>

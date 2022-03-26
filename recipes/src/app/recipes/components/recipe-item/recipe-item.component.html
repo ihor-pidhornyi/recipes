@@ -1,5 +1,5 @@
 <ng-container *ngIf="recipe">
-  <mat-card class="card" (click)="selectRecipe()">
+  <mat-card class="card" [routerLink]="[recipe.id]" routerLinkActive="card_active">
     <mat-card-title-group>
       <mat-card-title>{{ recipe.name }}</mat-card-title>
       <mat-card-subtitle>{{ recipe.description }}</mat-card-subtitle>

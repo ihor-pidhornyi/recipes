@@ -5,24 +5,26 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'shopping'
+    redirectTo: 'shopping',
   },
   {
     path: 'shopping',
-    loadChildren: () => import('./shopping/shopping.module').then(m => m.ShoppingModule)
+    loadChildren: () =>
+      import('./shopping/shopping.module').then((m) => m.ShoppingModule),
   },
   {
     path: 'recipes',
-    loadChildren: () => import('./recipes/recipes.module').then(m => m.RecipesModule)
+    loadChildren: () =>
+      import('./recipes/recipes.module').then((m) => m.RecipesModule),
   },
   {
     path: '**',
-    redirectTo: 'shopping'
-  }
+    redirectTo: 'shopping',
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
