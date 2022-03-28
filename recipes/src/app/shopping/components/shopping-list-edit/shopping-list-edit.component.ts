@@ -10,11 +10,11 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShoppingListEditComponent implements OnInit {
-  private positiveNumbersRegExp = new RegExp(/^[1-9]+[0-9]*$/)
+  private positiveNumbers = new RegExp(/^[1-9]+[0-9]*$/)
 
   public form = new FormGroup({
     name: new FormControl('', Validators.required),
-    amount: new FormControl(null, [Validators.required, Validators.pattern(this.positiveNumbersRegExp)])
+    amount: new FormControl(null, [Validators.required, Validators.pattern(this.positiveNumbers)])
   });
 
   constructor(private shoppingService: ShoppingService) {}
