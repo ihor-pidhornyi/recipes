@@ -1,0 +1,19 @@
+<h1>Warning!</h1>
+<p>{{ data }}</p>
+<mat-checkbox [formControl]="askAgain" [color]="'primary'">Don't ask me again</mat-checkbox>
+<div class="buttons">
+  <button
+    mat-raised-button
+    [color]="'primary'"
+    (click)="confirm()"
+  >
+    Ok
+  </button>
+  <button
+    mat-stroked-button
+    [color]="'primary'"
+    (click)="discard()"
+  >
+    Cancel
+  </button>
+</div>

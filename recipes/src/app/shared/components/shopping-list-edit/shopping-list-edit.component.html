@@ -1,0 +1,46 @@
+<form [formGroup]="form">
+  <div>
+    <mat-form-field appearance="fill">
+      <mat-label>Name</mat-label>
+      <input
+        matInput
+        formControlName="name"
+        type="text"
+        placeholder="Enter ingredient name: "
+        autocomplete="off"
+      >
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field appearance="fill">
+      <mat-label>Amount</mat-label>
+      <input
+        matInput
+        formControlName="amount"
+        type="number"
+        placeholder="Amount of ingredients: "
+        autocomplete="off"
+      >
+    </mat-form-field>
+  </div>
+  <div class="buttons">
+    <!-- type="button due to invalid form controls view (ng-material) after reseting form"-->
+    <button
+      mat-raised-button
+      [color]="'primary'"
+      [disabled]="form?.invalid"
+      type="button"
+      (click)="onSubmit()"
+    >Save
+    </button>
+    <button
+      *ngIf="isEdit$ | async"
+      mat-stroked-button
+      [color]="'primary'"
+      type="button"
+      (click)="onDiscard()"
+    >
+      Cancel
+    </button>
+  </div>
+</form>

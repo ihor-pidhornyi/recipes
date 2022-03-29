@@ -1,3 +1,25 @@
 mat-divider {
   margin: 20px 0;
 }
+
+mat-icon {
+  transition: 0.4s ease-out;
+}
+mat-icon.active {
+  transform: rotateZ(135deg);
+}
+
+app-shopping-list-edit {
+  display: block;
+  margin-top: 1rem;
+}
+
+.button {
+  padding-right: 1.5rem;
+
+  &__content {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+  }
+}

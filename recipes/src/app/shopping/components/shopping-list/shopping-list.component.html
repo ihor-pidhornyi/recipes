@@ -1,8 +1,16 @@
 <ng-container *ngIf="ingredients$ | async as ingredients">
-  <mat-card class="card" *ngFor="let ingredient of ingredients; let index = index" [tabIndex]="index">
-    <mat-card-title-group>
-      <mat-card-title>{{ ingredient.name }} ({{ ingredient.amount }})</mat-card-title>
-    </mat-card-title-group>
+  <mat-card
+    class="card"
+    *ngFor="let ingredient of ingredients; let index = index"
+    [tabIndex]="index"
+    (click)="onEditItem(ingredient)"
+  >
+    <div class="card__content">
+      <h1>{{ ingredient.name }} ({{ ingredient.amount }})</h1>
+      <button mat-mini-fab [color]="'primary'" (click)="onDeleteItem($event, ingredient)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
   </mat-card>
 </ng-container>
 

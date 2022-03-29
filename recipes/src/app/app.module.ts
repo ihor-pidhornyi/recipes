@@ -8,10 +8,11 @@ import { MatButtonModule } from '@angular/material/button';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './shared/header/header.component';
+import { HeaderComponent } from './shared/components/header/header.component';
 import { RouterModule } from '@angular/router';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTabsModule } from '@angular/material/tabs';
+import {SharedModule} from "./shared/shared.module";
 
 const AngularModules = [BrowserModule, BrowserAnimationsModule, RouterModule];
 
@@ -24,8 +25,8 @@ const MaterialModules = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent],
-  imports: [...AngularModules, ...MaterialModules, AppRoutingModule],
+  declarations: [AppComponent],
+  imports: [...AngularModules, ...MaterialModules, SharedModule, AppRoutingModule],
   providers: [],
   bootstrap: [AppComponent],
 })

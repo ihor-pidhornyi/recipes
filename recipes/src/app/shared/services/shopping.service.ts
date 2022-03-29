@@ -1,29 +1,70 @@
 import { Injectable } from '@angular/core';
 import { Ingredient } from '../models/ingredient.model';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ShoppingService {
-  private ingredients$ = new BehaviorSubject<Ingredient[]>([
+  constructor() {}
+
+  private _ingredients = new BehaviorSubject<Ingredient[]>([
     { name: 'Apples', amount: 5 },
     { name: 'Tomatoes', amount: 10 },
   ]);
 
-  constructor() {}
+  private get ingredients(): Ingredient[] {
+    return this._ingredients.value;
+  }
 
   public getIngredients$(): Observable<Ingredient[]> {
-    return this.ingredients$.asObservable();
+    return this._ingredients.asObservable();
+  }
+
+  public getIngredient$(index: number): Observable<Ingredient> {
+    return this.getIngredients$().pipe(
+      map((ingredients) => ingredients[index])
+    );
   }
 
   public addIngredient(ingredient: Ingredient): void {
-    const previousIngredients = this.ingredients$.value;
-    this.ingredients$.next([...previousIngredients, ingredient]);
+    this.append(ingredient);
   }
 
   public addIngredients(ingredients: Ingredient[]): void {
-    const previousIngredients = this.ingredients$.value;
-    this.ingredients$.next([...previousIngredients, ...ingredients]);
+    this.append(...ingredients);
+  }
+
+  public updateIngredient(
+    id: string,
+    ingredient: Ingredient
+  ): Observable<boolean> {
+    const index = this.getIndexById(id);
+    if (index === -1) {
+      return of(false);
+    }
+    const copy = this.ingredients.slice();
+    copy[index] = ingredient;
+    this._ingredients.next(copy);
+    return of(true);
+  }
+
+  public deleteIngredient(id: string, ingredient: Ingredient): void {
+    const index = this.getIndexById(id);
+    if (index === -1) {
+      return;
+    }
+    this._ingredients.next([...this.ingredients.slice(0, index), ...this.ingredients.slice(index + 1, this.ingredients.length)])
+  }
+
+  private getIndexById(id: string): number {
+    return this.ingredients.findIndex(
+      (eachIngredient) => eachIngredient.name.toLowerCase() === id.toLowerCase()
+    );
+  }
+
+  private append(...ingredients: Ingredient[]): void {
+    const previousIngredients = this.ingredients;
+    this._ingredients.next([...previousIngredients, ...ingredients]);
   }
 }
