@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-xs-12">
-    <button class="button" mat-button color="primary" (click)="toggleOpen()">
+    <button class="button" mat-button [color]="'primary'" (click)="toggleOpen()">
       <div class="button__content">
         <mat-icon [class.active]="open$ | async">add</mat-icon>
         Add ingredient
