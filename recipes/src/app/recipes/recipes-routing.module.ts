@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { RecipesComponent } from './recipes.component';
 import { RecipeDetailComponent } from './components/recipe-detail/recipe-detail.component';
-import { RecipeNotSelectedComponent } from './components/recipe-not-selected/recipe-not-selected.component';
 import { RecipeEditComponent } from './components/recipe-edit/recipe-edit.component';
+import { RecipeNotSelectedComponent } from './components/recipe-not-selected/recipe-not-selected.component';
 
 const routes: Routes = [
   {
@@ -33,7 +33,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class RecipesRoutingModule {
-}
+export class RecipesRoutingModule {}

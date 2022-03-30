@@ -1,3 +1,79 @@
-<p>recipe-edit works!</p>
-{{ id$ | async }}
-{{ isEditMode$ | async }}
+<ng-container *ngIf="form">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <h1>{{ (isEditMode$ | async) ? 'Edit recipe' : 'Create new recipe' }}</h1>
+    <div>
+      <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input type="text" matInput autocomplete="off" [formControlName]="RECIPE_FORM.name">
+        <mat-error *ngIf="form.get(RECIPE_FORM.name)?.errors">This field is required</mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field appearance="fill">
+        <mat-label>Image URL</mat-label>
+        <input type="text" matInput autocomplete="off" [formControlName]="RECIPE_FORM.imagePath">
+        <mat-error *ngIf="form.get(RECIPE_FORM.imagePath)?.errors?.required">This field is required</mat-error>
+        <mat-error *ngIf="form.get(RECIPE_FORM.imagePath)?.errors?.pattern as pattern">
+          <strong>{{ pattern.actualValue }}</strong> is not a URL
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <img
+      width="100%"
+      [src]="form.get(RECIPE_FORM.imagePath)?.value"
+      alt="{{ form.get(RECIPE_FORM.name)?.value ?? '' }}"
+      class="recipe-img"
+    >
+    <div>
+      <mat-form-field appearance="fill">
+        <mat-label>Description</mat-label>
+        <textarea
+          type="text"
+          matInput
+          rows="6"
+          [formControlName]="RECIPE_FORM.description"
+        ></textarea>
+        <mat-error *ngIf="form.get(RECIPE_FORM.description)?.errors">This field is required</mat-error>
+      </mat-form-field>
+    </div>
+    <div [formArrayName]="RECIPE_FORM.ingredients">
+      <div *ngFor="let group of this.controls; let i = index; trackBy: trackByFn" [formGroupName]="i"
+           class="ingredient-row">
+        <mat-form-field class="ingredient-row__name" appearance="fill">
+          <mat-label>Ingredient name</mat-label>
+          <input
+            type="text"
+            matInput
+            formControlName="name"
+          >
+          <mat-error *ngIf="group.get('name')?.errors">This field is required</mat-error>
+        </mat-form-field>
+        <mat-form-field class="ingredient-row__amount" appearance="fill">
+          <mat-label>Amount</mat-label>
+          <input
+            type="number"
+            matInput
+            formControlName="amount"
+          >
+          <mat-error *ngIf="group.get('amount')?.errors?.required">This field is required</mat-error>
+          <mat-error *ngIf="group.get('amount')?.errors?.pattern">Value can't be less 1</mat-error>
+        </mat-form-field>
+        <div class="ingredient-row__button">
+          <button mat-icon-button type="button" (click)="removeIngredientControl(i)">
+            <mat-icon>clear</mat-icon>
+          </button>
+        </div>
+      </div>
+      <button class="icon-button" type="button" mat-button [color]="'primary'" (click)="addIngredientControl()">
+        <div class="icon-button__content">
+          <mat-icon>add</mat-icon>
+          Add ingredient
+        </div>
+      </button>
+    </div>
+    <div class="buttons">
+      <button mat-raised-button [color]="'primary'" type="submit" [disabled]="form.invalid">Save</button>
+      <button mat-stroked-button [color]="'primary'" type="button" (click)="discardChanges()">Cancel</button>
+    </div>
+  </form>
+</ng-container>

@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Ingredient } from '../shared/models/ingredient.model';
-import { ShoppingService } from '../shared/services/shopping.service';
+import { Ingredient, ShoppingService } from '@shared';
 
 @Component({
   selector: 'app-shopping',

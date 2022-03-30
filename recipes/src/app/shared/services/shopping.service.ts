@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Ingredient } from '../models/ingredient.model';
-import { BehaviorSubject, map, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -54,7 +55,10 @@ export class ShoppingService {
     if (index === -1) {
       return;
     }
-    this._ingredients.next([...this.ingredients.slice(0, index), ...this.ingredients.slice(index + 1, this.ingredients.length)])
+    this._ingredients.next([
+      ...this.ingredients.slice(0, index),
+      ...this.ingredients.slice(index + 1, this.ingredients.length),
+    ]);
   }
 
   private getIndexById(id: string): number {

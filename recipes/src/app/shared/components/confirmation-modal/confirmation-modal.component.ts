@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormControl } from '@angular/forms';
-import { ConfirmModalResult } from '../../models/confirm-modal.model';
+import { ConfirmModalResult } from '../../models/confirm-modal-result.model';
+import { ConfirmationModalData } from '../../models/confirmation-modal-data.model'
 
 @Component({
   selector: 'app-confirmation-modal',
@@ -17,12 +18,16 @@ export class ConfirmationModalComponent {
       ConfirmationModalComponent,
       ConfirmModalResult
     >,
-    @Inject(MAT_DIALOG_DATA) public data: string
+    @Inject(MAT_DIALOG_DATA) public data: ConfirmationModalData
   ) {}
 
   public confirm() {
-    const askAgainValue = this.askAgain.value as boolean;
-    this.dialogRef.close({ confirm: true, askAgain: askAgainValue });
+    if (this.data?.askAgain) {
+      const askAgainValue = this.askAgain.value as boolean;
+      this.dialogRef.close({ confirm: true, askAgain: askAgainValue });
+    } else {
+      this.dialogRef.close({ confirm: true });
+    }
   }
 
   public discard(): void {

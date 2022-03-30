@@ -1,27 +1,50 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from './components/header/header.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-import { RouterModule } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
-import {ReactiveFormsModule} from "@angular/forms";
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+
 import { ConfirmationModalComponent } from './components/confirmation-modal/confirmation-modal.component';
-import {MatCheckboxModule} from "@angular/material/checkbox";
+import { HeaderComponent } from './components/header/header.component';
+import { EditIngredientComponent } from './components/shopping-list-edit/edit-ingredient.component';
+
+const AngularModules = [
+  CommonModule,
+  ReactiveFormsModule,
+  RouterModule,
+]
+
+const MaterialModules = [
+  MatIconModule,
+  MatMenuModule,
+  MatToolbarModule,
+  MatButtonModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatCheckboxModule,
+]
 
 @NgModule({
-  declarations: [HeaderComponent, ConfirmationModalComponent],
-  imports: [
-    CommonModule,
-    MatIconModule,
-    MatMenuModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatCheckboxModule,
-    ReactiveFormsModule,
-    RouterModule,
+  declarations: [
+    HeaderComponent,
+    ConfirmationModalComponent,
+    EditIngredientComponent,
   ],
-  exports: [HeaderComponent],
+  imports: [
+    ...AngularModules,
+    ...MaterialModules,
+  ],
+  exports: [
+    HeaderComponent,
+    EditIngredientComponent,
+    ConfirmationModalComponent,
+  ],
 })
 export class SharedModule {}

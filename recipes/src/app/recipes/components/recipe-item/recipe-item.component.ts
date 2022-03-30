@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Recipe } from '../../models/recipe.model';
 
 @Component({
@@ -12,10 +7,6 @@ import { Recipe } from '../../models/recipe.model';
   styleUrls: ['./recipe-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RecipeItemComponent implements OnInit {
+export class RecipeItemComponent {
   @Input() recipe: Recipe | undefined;
-
-  constructor() {}
-
-  ngOnInit(): void {}
 }

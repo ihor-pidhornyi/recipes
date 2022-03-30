@@ -1,7 +1,7 @@
 <ng-container *ngIf="recipe$ | async as recipe">
   <div class="row">
     <div class="col-xs-12">
-      <img [src]="recipe.imagePath" [alt]="recipe.name" class="recipe-img">
+      <img width="100%" [src]="recipe.imagePath" [alt]="recipe.name">
     </div>
   </div>
   <div class="row">
@@ -24,7 +24,7 @@
           <mat-icon>edit</mat-icon>
           <span>Edit recipe</span>
         </button>
-        <button mat-menu-item>
+        <button mat-menu-item (click)="onDeleteRecipe(recipe)">
           <mat-icon>delete</mat-icon>
           <span>Delete recipe</span>
         </button>
@@ -41,10 +41,8 @@
   </div>
   <div class="row">
     <div class="col-xs-12">
-      <mat-chip-list
-        class="example-chip">
+      <mat-chip-list>
         <mat-chip
-          class="example-box"
           *ngFor="let ingredient of recipe.ingredients">
           {{ingredient.name}} ({{ ingredient.amount }})
         </mat-chip>

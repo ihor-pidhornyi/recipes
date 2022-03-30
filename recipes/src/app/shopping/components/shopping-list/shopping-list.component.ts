@@ -1,11 +1,16 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Ingredient } from '../../../shared/models/ingredient.model';
-import { filter, Observable, take } from 'rxjs';
-import { ShoppingService } from '../../../shared/services/shopping.service';
 import { MatDialog } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
+import { filter, take } from 'rxjs/operators';
+import {
+  ConfirmationModalComponent,
+  ConfirmationModalData,
+  ConfirmModalResult,
+  Ingredient,
+  ShoppingService,
+} from '@shared';
 import { ShoppingEditModalComponent } from '../shopping-edit-modal/shopping-edit-modal.component';
-import { ConfirmationModalComponent } from '../../../shared/components/confirmation-modal/confirmation-modal.component';
-import { ConfirmModalResult } from '../../../shared/models/confirm-modal.model';
+import { AskAgainEnumKeys } from '../../constants/constants';
 
 @Component({
   selector: 'app-shopping-list',
@@ -24,8 +29,7 @@ export class ShoppingListComponent implements OnInit {
 
   ngOnInit(): void {
     this.ingredients$ = this.shoppingService.getIngredients$();
-    this.dontAsk = localStorage.getItem('askAgain') === 'true';
-    console.log(typeof localStorage.getItem('askAgain'))
+    this.dontAsk = localStorage.getItem(AskAgainEnumKeys.ingredient) === 'true';
   }
 
   public onEditItem(ingredient: Ingredient): void {
@@ -33,7 +37,6 @@ export class ShoppingListComponent implements OnInit {
       .open<ShoppingEditModalComponent, Ingredient>(
         ShoppingEditModalComponent,
         {
-          maxWidth: 800,
           data: ingredient,
         }
       )
@@ -55,9 +58,16 @@ export class ShoppingListComponent implements OnInit {
       this.shoppingService.deleteIngredient(ingredient.name, ingredient);
     } else {
       this.dialog
-        .open<ConfirmationModalComponent, string>(ConfirmationModalComponent, {
-          data: 'Do you really want to delete this ingredient?',
-        })
+        .open<ConfirmationModalComponent, ConfirmationModalData>(
+          ConfirmationModalComponent,
+          {
+            data: {
+              contentText: 'Do you really want to delete this ingredient?',
+              askAgain: true,
+              confirmText: 'Delete',
+            },
+          }
+        )
         .afterClosed()
         .pipe(
           filter(
@@ -68,8 +78,11 @@ export class ShoppingListComponent implements OnInit {
         .subscribe((result) => {
           if (result.confirm) {
             // add notification service
-            localStorage.setItem('askAgain', JSON.stringify(result.askAgain));
-            this.dontAsk = result.askAgain;
+            localStorage.setItem(
+              AskAgainEnumKeys.ingredient,
+              JSON.stringify(result.askAgain ?? false)
+            );
+            this.dontAsk = result.askAgain ?? false;
             this.shoppingService.deleteIngredient(ingredient.name, ingredient);
           }
         });

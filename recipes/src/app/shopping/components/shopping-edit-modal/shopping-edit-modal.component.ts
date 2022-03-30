@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Ingredient } from '../../../shared/models/ingredient.model';
-import {ShoppingService} from "../../../shared/services/shopping.service";
+import { Ingredient, ShoppingService } from '@shared';
 
 @Component({
   selector: 'app-shopping-edit-modal',
@@ -17,12 +16,14 @@ export class ShoppingEditModalComponent {
   ) {}
 
   public onSubmit(ingredient: Ingredient) {
-    this.shoppingService.updateIngredient(this.data.name, ingredient).subscribe((isSuccess) => {
-      this.dialogRef.close(isSuccess)
-    })
+    this.shoppingService
+      .updateIngredient(this.data.name, ingredient)
+      .subscribe((isSuccess) => {
+        this.dialogRef.close(isSuccess);
+      });
   }
 
   public onDiscard(): void {
-    this.dialogRef.close()
+    this.dialogRef.close();
   }
 }

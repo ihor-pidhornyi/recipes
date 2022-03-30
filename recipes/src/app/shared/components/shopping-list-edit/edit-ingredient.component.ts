@@ -10,12 +10,12 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject, Subject } from 'rxjs';
 
 @Component({
-  selector: 'app-shopping-list-edit',
-  templateUrl: './shopping-list-edit.component.html',
-  styleUrls: ['./shopping-list-edit.component.scss'],
+  selector: 'app-edit-ingredient',
+  templateUrl: './edit-ingredient.component.html',
+  styleUrls: ['./edit-ingredient.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ShoppingListEditComponent implements OnInit {
+export class EditIngredientComponent implements OnInit {
   @Input() set ingredient(ingredient: Ingredient) {
     if (!this.isEdit$.value) {
       this.isEdit$.next(true);
@@ -26,6 +26,9 @@ export class ShoppingListEditComponent implements OnInit {
   @Output() submitted = new Subject<Ingredient>();
   @Output() discard = new Subject<void>();
 
+  public ingredient$ = new BehaviorSubject<Ingredient | null>(null);
+  public isEdit$ = new BehaviorSubject<boolean>(false);
+
   private positiveNumbers = new RegExp(/^[1-9]+[0-9]*$/);
   public form: FormGroup = new FormGroup({
     name: new FormControl(null, Validators.required),
@@ -34,13 +37,7 @@ export class ShoppingListEditComponent implements OnInit {
       Validators.pattern(this.positiveNumbers),
     ]),
   });
-
-  public ingredient$ = new BehaviorSubject<Ingredient | null>(null);
-  public isEdit$ = new BehaviorSubject<boolean>(false);
-
   private onDestroy$ = new Subject<void>();
-
-  constructor() {}
 
 
   ngOnInit(): void {
@@ -62,12 +59,12 @@ export class ShoppingListEditComponent implements OnInit {
   }
 
   public onDiscard(): void {
-    this.discard.next()
+    this.discard.next();
   }
 
   ngOnDestroy(): void {
-    this.onDestroy$.next()
-    this.onDestroy$.complete()
+    this.onDestroy$.next();
+    this.onDestroy$.complete();
   }
 
   public isNewEditValue(): boolean {
