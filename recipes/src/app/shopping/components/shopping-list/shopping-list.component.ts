@@ -70,6 +70,7 @@ export class ShoppingListComponent implements OnInit {
         )
         .afterClosed()
         .pipe(
+          take(1),
           filter(
             (value): value is ConfirmModalResult =>
               value && 'confirm' in value && 'askAgain' in value

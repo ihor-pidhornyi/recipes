@@ -5,9 +5,10 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { Ingredient } from '../../models/ingredient.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { BehaviorSubject, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-edit-ingredient',
@@ -16,19 +17,10 @@ import { BehaviorSubject, Subject } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditIngredientComponent implements OnInit {
-  @Input() set ingredient(ingredient: Ingredient) {
-    if (!this.isEdit$.value) {
-      this.isEdit$.next(true);
-    }
-    this.ingredient$.next(ingredient);
-  }
-
   @Output() submitted = new Subject<Ingredient>();
   @Output() discard = new Subject<void>();
-
   public ingredient$ = new BehaviorSubject<Ingredient | null>(null);
   public isEdit$ = new BehaviorSubject<boolean>(false);
-
   private positiveNumbers = new RegExp(/^[1-9]+[0-9]*$/);
   public form: FormGroup = new FormGroup({
     name: new FormControl(null, Validators.required),
@@ -39,13 +31,21 @@ export class EditIngredientComponent implements OnInit {
   });
   private onDestroy$ = new Subject<void>();
 
+  @Input() set ingredient(ingredient: Ingredient) {
+    if (!this.isEdit$.value) {
+      this.isEdit$.next(true);
+    }
+    this.ingredient$.next(ingredient);
+  }
 
   ngOnInit(): void {
-    this.ingredient$.pipe().subscribe((ingredient: Ingredient | null) => {
-      if (ingredient) {
-        this.form.setValue(ingredient);
-      }
-    });
+    this.ingredient$
+      .pipe(takeUntil(this.onDestroy$))
+      .subscribe((ingredient: Ingredient | null) => {
+        if (ingredient) {
+          this.form.setValue(ingredient);
+        }
+      });
   }
 
   public onSubmit(): void {

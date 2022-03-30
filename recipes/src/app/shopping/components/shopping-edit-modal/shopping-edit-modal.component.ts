@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { take } from 'rxjs/operators';
 import { Ingredient, ShoppingService } from '@shared';
 
 @Component({
@@ -18,6 +19,7 @@ export class ShoppingEditModalComponent {
   public onSubmit(ingredient: Ingredient) {
     this.shoppingService
       .updateIngredient(this.data.name, ingredient)
+      .pipe(take(1))
       .subscribe((isSuccess) => {
         this.dialogRef.close(isSuccess);
       });
