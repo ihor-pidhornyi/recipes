@@ -20,7 +20,7 @@
     </div>
     <img
       width="100%"
-      [src]="form.get(RECIPE_FORM.imagePath)?.value"
+      [src]="form.get(RECIPE_FORM.imagePath)?.valid ? form.get(RECIPE_FORM.imagePath)?.value : ''"
       alt="{{ form.get(RECIPE_FORM.name)?.value ?? '' }}"
       class="recipe-img"
     >
