@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, Output} from '@angular/core';
+import { Subject } from 'rxjs';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-header',
@@ -6,4 +8,11 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrls: ['./header.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeaderComponent {}
+export class HeaderComponent {
+  @Input() darkMode: boolean | undefined
+  @Output() modeChanged = new Subject<boolean>();
+
+  public onModeChange({ checked }: MatSlideToggleChange) {
+    this.modeChanged.next(checked);
+  }
+}

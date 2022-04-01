@@ -1,4 +1,4 @@
-<app-header></app-header>
+<app-header (modeChanged)="onModeChanged($event)" [darkMode]="(isDarkMode$ | async) ?? false"></app-header>
 
 <div class="container container_positioned">
   <div class="row">

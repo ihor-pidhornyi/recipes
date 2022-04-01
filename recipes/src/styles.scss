@@ -1,4 +1,33 @@
-/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+
+@include mat.core();
+
+@import "./app/app.component.theme";
+
+$recipes-primary-light: mat.define-palette(mat.$indigo-palette, 600);
+$recipes-primary-dark: mat.define-palette(mat.$indigo-palette, 400);
+$recipes-accent: mat.define-palette(mat.$yellow-palette, 400);
+$recipes-warn: mat.define-palette(mat.$red-palette);
+
+$recipes-theme: mat.define-light-theme((
+  color: (
+    primary: $recipes-primary-light,
+    accent: $recipes-accent,
+    warn: $recipes-warn
+  )
+));
+$recipes-theme-dark: mat.define-dark-theme((
+  color: (
+    primary: $recipes-primary-dark,
+    accent: $recipes-accent,
+    warn: $recipes-warn
+  )
+));
+
+@mixin custom-theme($theme) {
+  @include mat.all-component-themes($theme);
+  @include root-theme($theme);
+}
 
 html, body {
   height: 100%;
@@ -9,11 +38,53 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+.theme-light {
+  @include custom-theme($recipes-theme);
+
+  .card {
+    &_active {
+      background-color: mat.get-color-from-palette($recipes-primary-light) !important;
+    }
+
+    &_active, &_active mat-card-subtitle {
+      color: mat.get-contrast-color-from-palette($recipes-primary-light, 600) !important;
+    }
+  }
+
+  .icon-button__content {
+    color: mat.get-color-from-palette($recipes-primary-light) !important;
+  }
+}
+
+.theme-dark {
+  @include custom-theme($recipes-theme-dark);
+
+  h1, h2, h3, h4, h5, h6, input, textarea, div, p, span {
+    &:not([class^=mat]) {
+      color: mat.get-contrast-color-from-palette($recipes-primary-dark, 400);
+    }
+  }
+
+  .card {
+    &_active {
+      background-color: mat.get-color-from-palette($recipes-primary-dark) !important;
+    }
+
+    &_active, &_active mat-card-subtitle {
+      color: mat.get-contrast-color-from-palette($recipes-primary-dark, 400) !important;
+    }
+  }
+
+  .icon-button__content {
+    color: mat.get-color-from-palette($recipes-primary-dark) !important;
+  }
+}
+
 .card {
   cursor: pointer;
 
   &:hover {
-    box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+    box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12) !important;
   }
 }
 
@@ -21,4 +92,8 @@ body {
   display: flex;
   gap: 0.5rem;
   align-items: center;
+}
+
+.header__link_active {
+  color: mat.get-color-from-palette($recipes-accent) !important;
 }

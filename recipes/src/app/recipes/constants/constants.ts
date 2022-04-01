@@ -18,7 +18,7 @@ export const MOCK_RECIPES: Recipe[] = [
   {
     id: '2',
     name: 'Another Test recipe',
-    description: 'This is simply a test',
+    description: 'This is simply a test This is simply a test This is simply a test This is simply a test This is simply a test This is simply a test This is simply a test',
     imagePath:
       'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/goulash-1640024815.jpeg?crop=1.00xw:0.752xh;0,0.115xh&resize=1200:*',
     ingredients: [

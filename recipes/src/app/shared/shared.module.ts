@@ -10,16 +10,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 import { ConfirmationModalComponent } from './components/confirmation-modal/confirmation-modal.component';
 import { HeaderComponent } from './components/header/header.component';
 import { EditIngredientComponent } from './components/shopping-list-edit/edit-ingredient.component';
 
-const AngularModules = [
-  CommonModule,
-  ReactiveFormsModule,
-  RouterModule,
-]
+const AngularModules = [CommonModule, ReactiveFormsModule, RouterModule];
 
 const MaterialModules = [
   MatIconModule,
@@ -29,7 +26,8 @@ const MaterialModules = [
   MatFormFieldModule,
   MatInputModule,
   MatCheckboxModule,
-]
+  MatSlideToggleModule,
+];
 
 @NgModule({
   declarations: [
@@ -37,10 +35,7 @@ const MaterialModules = [
     ConfirmationModalComponent,
     EditIngredientComponent,
   ],
-  imports: [
-    ...AngularModules,
-    ...MaterialModules,
-  ],
+  imports: [...AngularModules, ...MaterialModules],
   exports: [
     HeaderComponent,
     EditIngredientComponent,

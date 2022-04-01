@@ -1,13 +1,16 @@
 .card {
-  &_active {
-    background-color: #3f51b5;
-  }
-
-  &_active, &_active mat-card-subtitle {
-    color: #ffffff;
-  }
-
   &__img {
     object-fit: cover;
+    margin-left: 0.625rem;
   }
+}
+
+mat-card-subtitle {
+  display: block;
+  display: -webkit-box;
+  margin-bottom: 0;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
