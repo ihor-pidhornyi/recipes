@@ -7,6 +7,7 @@ import {
   ConfirmationModalData,
   ConfirmModalResult,
   Ingredient,
+  NotificationService,
   ShoppingService,
 } from '@shared';
 import { ShoppingEditModalComponent } from '../shopping-edit-modal/shopping-edit-modal.component';
@@ -24,6 +25,7 @@ export class ShoppingListComponent implements OnInit {
 
   constructor(
     private shoppingService: ShoppingService,
+    private notificationService: NotificationService,
     private dialog: MatDialog
   ) {}
 
@@ -48,14 +50,35 @@ export class ShoppingListComponent implements OnInit {
         )
       )
       .subscribe((isSuccess) => {
-        // add notification service
+        if (isSuccess) {
+          this.notificationService.success(
+            `Successfully updated ${ingredient.name}!`
+          );
+          return;
+        }
+        this.notificationService.error(
+          `Couldn't find ${ingredient.name}, try again!`
+        );
       });
   }
 
   public onDeleteItem(event: MouseEvent, ingredient: Ingredient): void {
     event.stopPropagation();
     if (this.dontAsk) {
-      this.shoppingService.deleteIngredient(ingredient.name, ingredient);
+      this.shoppingService
+        .deleteIngredient(ingredient.name, ingredient)
+        .pipe(take(1))
+        .subscribe((isSuccess) => {
+          if (isSuccess) {
+            this.notificationService.success(
+              `Successfully deleted ${ingredient.name}!`
+            );
+            return;
+          }
+          this.notificationService.error(
+            `Couldn't find ${ingredient.name}, try again!`
+          );
+        });
     } else {
       this.dialog
         .open<ConfirmationModalComponent, ConfirmationModalData>(
@@ -78,13 +101,25 @@ export class ShoppingListComponent implements OnInit {
         )
         .subscribe((result) => {
           if (result.confirm) {
-            // add notification service
             localStorage.setItem(
               AskAgainEnumKeys.ingredient,
               JSON.stringify(result.askAgain ?? false)
             );
             this.dontAsk = result.askAgain ?? false;
-            this.shoppingService.deleteIngredient(ingredient.name, ingredient);
+            this.shoppingService
+              .deleteIngredient(ingredient.name, ingredient)
+              .pipe(take(1))
+              .subscribe((isSuccess) => {
+                if (isSuccess) {
+                  this.notificationService.success(
+                    `Successfully deleted ${ingredient.name}!`
+                  );
+                  return;
+                }
+                this.notificationService.error(
+                  `Couldn't find ${ingredient.name}, try again!`
+                );
+              });
           }
         });
     }

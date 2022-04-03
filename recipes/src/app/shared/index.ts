@@ -11,3 +11,4 @@ export * from './models/confirmation-modal-data.model'
 export * from './models/ingredient.model'
 
 export * from './services/shopping.service'
+export * from './services/notification.service'

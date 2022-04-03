@@ -7,6 +7,7 @@ import {
   ConfirmationModalComponent,
   ConfirmationModalData,
   ConfirmModalResult,
+  NotificationService,
   ShoppingService,
 } from '@shared';
 import { Recipe } from '../../models/recipe.model';
@@ -24,6 +25,7 @@ export class RecipeDetailComponent implements OnInit {
   constructor(
     private shoppingService: ShoppingService,
     private recipesService: RecipesService,
+    private notificationService: NotificationService,
     private route: ActivatedRoute,
     private router: Router,
     private dialog: MatDialog
@@ -39,7 +41,20 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   public addToShoppingList(recipe: Recipe) {
-    this.shoppingService.addIngredients(recipe?.ingredients);
+    this.shoppingService
+      .addIngredients(recipe?.ingredients)
+      .pipe(take(1))
+      .subscribe((isSuccess) => {
+        if (isSuccess) {
+          this.notificationService.success(
+            `Added ${recipe.name} ingredients to shopping list!`
+          );
+          return;
+        }
+        this.notificationService.error(
+          `Whoops.. Couldn't ingredients of ${recipe.name} to shopping list`
+        );
+      });
   }
 
   public onEditRecipe(): void {
@@ -69,14 +84,20 @@ export class RecipeDetailComponent implements OnInit {
       )
       .subscribe(({ confirm }) => {
         if (confirm && recipe.id) {
-          // notification successful delete
           this.recipesService
             .deleteRecipe(recipe.id)
             .pipe(take(1))
             .subscribe((isSuccess) => {
               if (isSuccess) {
                 this.router.navigate(['../'], { relativeTo: this.route });
+                this.notificationService.success(
+                  `Successfully deleted recipe: ${recipe.name}`
+                );
+                return;
               }
+              this.notificationService.error(
+                `Couldn't delete recipe with name: ${recipe.name}, try again!`
+              );
             });
         }
       });

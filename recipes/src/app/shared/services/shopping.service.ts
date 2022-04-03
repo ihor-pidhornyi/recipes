@@ -32,8 +32,9 @@ export class ShoppingService {
     this.append(ingredient);
   }
 
-  public addIngredients(ingredients: Ingredient[]): void {
+  public addIngredients(ingredients: Ingredient[]): Observable<boolean> {
     this.append(...ingredients);
+    return of(true);
   }
 
   public updateIngredient(
@@ -50,15 +51,16 @@ export class ShoppingService {
     return of(true);
   }
 
-  public deleteIngredient(id: string, ingredient: Ingredient): void {
+  public deleteIngredient(id: string, ingredient: Ingredient): Observable<boolean> {
     const index = this.getIndexById(id);
     if (index === -1) {
-      return;
+      return of(false);
     }
     this._ingredients.next([
       ...this.ingredients.slice(0, index),
       ...this.ingredients.slice(index + 1, this.ingredients.length),
     ]);
+    return of(true);
   }
 
   private getIndexById(id: string): number {

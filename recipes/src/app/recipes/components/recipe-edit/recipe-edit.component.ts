@@ -3,7 +3,12 @@ import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { filter, map, switchMap, take, takeUntil } from 'rxjs/operators';
-import { Ingredient, POSITIVE_NUMBER_PATTERN, URL_PATTERN } from '@shared';
+import {
+  Ingredient,
+  NotificationService,
+  POSITIVE_NUMBER_PATTERN,
+  URL_PATTERN,
+} from '@shared';
 import { RECIPE_FORM } from '../../constants/constants';
 import { RecipesService } from '../../recipes.service';
 import { Recipe } from '../../models/recipe.model';
@@ -26,7 +31,8 @@ export class RecipeEditComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private recipesServices: RecipesService
+    private recipesServices: RecipesService,
+    private notificationService: NotificationService
   ) {}
 
   public get controls(): FormGroup[] {
@@ -76,11 +82,11 @@ export class RecipeEditComponent implements OnInit {
           .pipe(take(1))
           .subscribe((isSuccess) => {
             if (isSuccess) {
-              // notification success
+              this.notificationService.success(`Updated ${recipe.name} recipe!`)
               this.router.navigate(['../'], { relativeTo: this.route });
               return;
             }
-            // notification failure
+            this.notificationService.error('Whoops.. Something went wrong. Try again!')
           });
       }
       if (!isEdit) {
@@ -89,11 +95,11 @@ export class RecipeEditComponent implements OnInit {
           .pipe(take(1))
           .subscribe((isSuccess) => {
             if (isSuccess) {
-              // notification success
+              this.notificationService.success(`Added new ${recipe.name} recipe!`)
               this.router.navigate(['../'], { relativeTo: this.route });
               return;
             }
-            // notification failure
+            this.notificationService.success(`Couldn't add new recipe. Try again!`)
           });
       }
     });

@@ -97,3 +97,11 @@ body {
 .header__link_active {
   color: mat.get-color-from-palette($recipes-accent) !important;
 }
+
+.success-snackbar {
+  background: #45c547 !important;
+}
+
+.error-snackbar {
+  background: #ee5f52 !important;
+}

@@ -11,6 +11,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { ConfirmationModalComponent } from './components/confirmation-modal/confirmation-modal.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -27,6 +28,7 @@ const MaterialModules = [
   MatInputModule,
   MatCheckboxModule,
   MatSlideToggleModule,
+  MatSnackBarModule,
 ];
 
 @NgModule({
