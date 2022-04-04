@@ -1,33 +1,48 @@
 <mat-toolbar [color]="'primary'" class="mat-elevation-z6">
   <div class="header">
-    <div class="header__half">
-      <a class="header__title header__link" [routerLink]="['/']">
-        <mat-icon>receipt_long</mat-icon>
-        Recipe book
-      </a>
-      <ul class="header__links">
-        <li><a [routerLink]="['/recipes']" routerLinkActive="header__link_active" class="header__link">Recipes</a></li>
-        <li><a [routerLink]="['/shopping']" routerLinkActive="header__link_active" class="header__link">Shopping
-          List</a></li>
-      </ul>
-    </div>
-    <div class="header__half">
-      <mat-slide-toggle (change)="onModeChange($event)" [checked]="darkMode">
-        <mat-icon>dark_mode</mat-icon>
-      </mat-slide-toggle>
-<!--      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Icon-button with a menu">-->
-<!--        <mat-icon [inline]="true">more_vert</mat-icon>-->
-<!--      </button>-->
-<!--      <mat-menu #menu="matMenu">-->
-<!--        <button mat-menu-item disabled>-->
-<!--          <mat-icon>file_download</mat-icon>-->
-<!--          <span>Save data</span>-->
-<!--        </button>-->
-<!--        <button mat-menu-item disabled>-->
-<!--          <mat-icon>description</mat-icon>-->
-<!--          <span>Fetch data</span>-->
-<!--        </button>-->
-<!--      </mat-menu>-->
-    </div>
+    <a class="header__title nav__link" [routerLink]="['/']" (click)="closeNavAfterAction()">
+      <mat-icon>receipt_long</mat-icon>
+      Recipe book
+    </a>
+    <ng-container *ngIf="!(isHandset$ | async); else burgerSideNav">
+      <ng-container *ngTemplateOutlet="toolbarContent"></ng-container>
+    </ng-container>
   </div>
 </mat-toolbar>
+
+<ng-template #toolbarContent>
+  <div class="nav__half">
+    <ul class="nav__links">
+      <li><a [routerLink]="['/recipes']" routerLinkActive="nav__link_active" class="nav__link" (click)="closeNavAfterAction()">Recipes</a></li>
+      <li><a [routerLink]="['/shopping']" routerLinkActive="nav__link_active" class="nav__link" (click)="closeNavAfterAction()">Shopping
+        List</a></li>
+    </ul>
+  </div>
+  <div class="nav__half nav__end">
+    <mat-slide-toggle (change)="onModeChange($event)" [checked]="darkMode">
+      <mat-icon class="header__dark-mode-icon">dark_mode</mat-icon>
+    </mat-slide-toggle>
+    <!--      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Icon-button with a menu">-->
+    <!--        <mat-icon [inline]="true">more_vert</mat-icon>-->
+    <!--      </button>-->
+    <!--      <mat-menu #menu="matMenu">-->
+    <!--        <button mat-menu-item disabled>-->
+    <!--          <mat-icon>file_download</mat-icon>-->
+    <!--          <span>Save data</span>-->
+    <!--        </button>-->
+    <!--        <button mat-menu-item disabled>-->
+    <!--          <mat-icon>description</mat-icon>-->
+    <!--          <span>Fetch data</span>-->
+    <!--        </button>-->
+    <!--      </mat-menu>-->
+  </div>
+</ng-template>
+
+<ng-template #burgerSideNav>
+  <mat-icon (click)="toggleNavigation()" class="nav__outlet-btn">{{ (isOpened$ | async) ? 'close' : 'menu' }}</mat-icon>
+  <div class="nav__outlet-wrapper" [style.opacity]="(isOpened$ | async) ? 1 : 0">
+    <div class="nav nav__outlet">
+      <ng-container *ngTemplateOutlet="toolbarContent"></ng-container>
+    </div>
+  </div>
+</ng-template>

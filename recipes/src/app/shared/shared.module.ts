@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { LayoutModule } from '@angular/cdk/layout';
 
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
@@ -37,7 +38,7 @@ const MaterialModules = [
     ConfirmationModalComponent,
     EditIngredientComponent,
   ],
-  imports: [...AngularModules, ...MaterialModules],
+  imports: [...AngularModules, ...MaterialModules, LayoutModule],
   exports: [
     HeaderComponent,
     EditIngredientComponent,

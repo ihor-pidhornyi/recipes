@@ -54,6 +54,10 @@ body {
   .icon-button__content {
     color: mat.get-color-from-palette($recipes-primary-light) !important;
   }
+
+  .nav {
+    background-color: mat.get-color-from-palette($recipes-primary-light) !important;
+  }
 }
 
 .theme-dark {
@@ -78,6 +82,10 @@ body {
   .icon-button__content {
     color: mat.get-color-from-palette($recipes-primary-dark) !important;
   }
+
+  .nav {
+    background-color: mat.get-color-from-palette($recipes-primary-dark) !important;
+  }
 }
 
 .card {
@@ -94,7 +102,7 @@ body {
   align-items: center;
 }
 
-.header__link_active {
+.nav__link_active {
   color: mat.get-color-from-palette($recipes-accent) !important;
 }
 

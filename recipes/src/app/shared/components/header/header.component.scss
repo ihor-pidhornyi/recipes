@@ -13,30 +13,79 @@ mat-toolbar {
   justify-content: space-between;
   align-items: center;
 
-  &__half {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
+  .nav {
+    &__half {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
 
-  &__links {
-    display: flex;
-    gap: 1.25rem;
-    list-style-type: none;
-  }
+    &__end {
+      margin-left: auto;
+    }
 
-  &__link {
-    font-size: 0.875rem;
-    text-decoration: none;
-    color: #fff;
+    &__links {
+      display: flex;
+      gap: 1.25rem;
+      list-style-type: none;
+    }
 
+    &__link {
+      font-size: 0.875rem;
+      text-decoration: none;
+      color: #fff;
+    }
+
+    &__outlet {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 3rem 0;
+      z-index: 10;
+
+      &-wrapper {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transition: opacity 0.3s ease-in-out;
+      }
+
+      &-btn {
+        z-index: 11;
+      }
+
+
+      .nav__half {
+        height: auto;
+      }
+
+      .nav__links {
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .nav__end {
+        margin: 0;
+      }
+    }
   }
 
   &__title {
     display: flex;
     align-items: center;
     gap: 0.625rem;
-    font-size: 1.5rem;
+    font-size: 2rem;
+    z-index: 11;
+  }
+
+  &__dark-mode-icon {
+    margin-top: .325rem;
   }
 }
