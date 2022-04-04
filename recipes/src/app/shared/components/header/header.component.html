@@ -18,31 +18,19 @@
         List</a></li>
     </ul>
   </div>
-  <div class="nav__half nav__end">
+  <div class="nav__end">
     <mat-slide-toggle (change)="onModeChange($event)" [checked]="darkMode">
-      <mat-icon class="header__dark-mode-icon">dark_mode</mat-icon>
+      <mat-icon class="nav__dark-mode-icon">dark_mode</mat-icon>
     </mat-slide-toggle>
-    <!--      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Icon-button with a menu">-->
-    <!--        <mat-icon [inline]="true">more_vert</mat-icon>-->
-    <!--      </button>-->
-    <!--      <mat-menu #menu="matMenu">-->
-    <!--        <button mat-menu-item disabled>-->
-    <!--          <mat-icon>file_download</mat-icon>-->
-    <!--          <span>Save data</span>-->
-    <!--        </button>-->
-    <!--        <button mat-menu-item disabled>-->
-    <!--          <mat-icon>description</mat-icon>-->
-    <!--          <span>Fetch data</span>-->
-    <!--        </button>-->
-    <!--      </mat-menu>-->
   </div>
 </ng-template>
 
 <ng-template #burgerSideNav>
   <mat-icon (click)="toggleNavigation()" class="nav__outlet-btn">{{ (isOpened$ | async) ? 'close' : 'menu' }}</mat-icon>
-  <div class="nav__outlet-wrapper" [style.opacity]="(isOpened$ | async) ? 1 : 0">
-    <div class="nav nav__outlet">
-      <ng-container *ngTemplateOutlet="toolbarContent"></ng-container>
+
+    <div class="nav nav__outlet-wrapper" [@openClose]="(isOpened$ | async) ? 'open' : 'closed'">
+      <div class="nav__outlet">
+        <ng-container *ngTemplateOutlet="toolbarContent"></ng-container>
+      </div>
     </div>
-  </div>
 </ng-template>

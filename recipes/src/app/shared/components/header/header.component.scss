@@ -12,8 +12,10 @@ mat-toolbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 2rem;
 
   .nav {
+
     &__half {
       height: 100%;
       display: flex;
@@ -26,6 +28,7 @@ mat-toolbar {
     }
 
     &__links {
+      padding: 0;
       display: flex;
       gap: 1.25rem;
       list-style-type: none;
@@ -37,6 +40,14 @@ mat-toolbar {
       color: #fff;
     }
 
+    &__outlet-wrapper {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
     &__outlet {
       height: 100%;
       display: flex;
@@ -44,28 +55,16 @@ mat-toolbar {
       justify-content: flex-start;
       align-items: center;
       padding: 3rem 0;
-      z-index: 10;
-
-      &-wrapper {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        transition: opacity 0.3s ease-in-out;
-      }
 
       &-btn {
         z-index: 11;
       }
-
 
       .nav__half {
         height: auto;
       }
 
       .nav__links {
-        padding: 0;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -75,17 +74,16 @@ mat-toolbar {
         margin: 0;
       }
     }
+    &__dark-mode-icon {
+      margin-top: .3125rem;
+    }
   }
 
   &__title {
     display: flex;
     align-items: center;
     gap: 0.625rem;
-    font-size: 2rem;
+    font-size: 1.5rem !important;
     z-index: 11;
-  }
-
-  &__dark-mode-icon {
-    margin-top: .325rem;
   }
 }
