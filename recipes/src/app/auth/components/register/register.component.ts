@@ -1,9 +1,16 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  ValidationErrors,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 
 enum HiddenFields {
   password = 'password',
-  repeatPassword = 'repeatPassword'
+  repeatPassword = 'repeatPassword',
 }
 
 @Component({
@@ -13,11 +20,10 @@ enum HiddenFields {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterComponent implements OnInit {
-
   public form: FormGroup | undefined;
   public hidden: Record<HiddenFields, boolean> | undefined;
 
-  public readonly HiddenFields = HiddenFields
+  public readonly HiddenFields = HiddenFields;
 
   constructor() {}
 
@@ -25,13 +31,13 @@ export class RegisterComponent implements OnInit {
     this.form = new FormGroup({
       name: new FormControl(null, [Validators.required, Validators.min(5)]),
       email: new FormControl(null, [Validators.required, Validators.email]),
-      password: new FormControl(null, Validators.required),
-      repeatPassword: new FormControl(null, Validators.required),
+      password: new FormControl(null, [Validators.required, Validators.min(8)]),
+      repeatPassword: new FormControl(null, [Validators.required, this.matchPasswordsValidator.bind(this)]),
     });
 
     this.hidden = {
       password: true,
-      repeatPassword: true
+      repeatPassword: true,
     };
   }
 
@@ -45,9 +51,19 @@ export class RegisterComponent implements OnInit {
 
   public toggleField(field: HiddenFields) {
     if (!this.hidden) {
-      return
+      return;
     }
 
-    this.hidden[field] = !this.hidden[field]
+    this.hidden[field] = !this.hidden[field];
+  }
+
+  private matchPasswordsValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!this.form) {
+        return null;
+      }
+      const passwordControl = this.form.get('password') as FormControl;
+      return passwordControl.value !== control.value ? { matchPasswords: 'Passwords don\'t match' } : null
+    };
   }
 }
