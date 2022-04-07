@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 import { SharedModule } from '@shared';
 
@@ -22,6 +23,7 @@ const MaterialModules = [
   MatIconModule,
   MatMenuModule,
   MatTabsModule,
+  MatProgressBarModule,
 ];
 
 @NgModule({

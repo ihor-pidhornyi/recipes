@@ -1,18 +1,24 @@
-<div class="row">
-  <div class="col-xs-12">
-    <button class="icon-button" mat-button [color]="'primary'" (click)="toggleOpen()">
-      <div class="icon-button__content">
-        <mat-icon [class.active]="open$ | async">add</mat-icon>
-        Add ingredient
+<div class="container container_positioned">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="row">
+        <div class="col-xs-12">
+          <button class="icon-button" mat-button [color]="'primary'" (click)="toggleOpen()">
+            <div class="icon-button__content">
+              <mat-icon [class.active]="open$ | async">add</mat-icon>
+              Add ingredient
+            </div>
+          </button>
+
+          <ng-container *ngIf="open$ | async">
+            <app-edit-ingredient (submitted)="onAddIngredient($event)"></app-edit-ingredient>
+          </ng-container>
+
+          <mat-divider></mat-divider>
+
+          <app-shopping-list></app-shopping-list>
+        </div>
       </div>
-    </button>
-
-    <ng-container *ngIf="open$ | async">
-      <app-edit-ingredient (submitted)="onAddIngredient($event)"></app-edit-ingredient>
-    </ng-container>
-
-    <mat-divider></mat-divider>
-
-    <app-shopping-list></app-shopping-list>
+    </div>
   </div>
 </div>

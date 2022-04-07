@@ -7,6 +7,13 @@ import {
   Renderer2,
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import {
+  NavigationCancel,
+  NavigationEnd,
+  NavigationError,
+  NavigationStart,
+  Router,
+} from '@angular/router';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -20,12 +27,14 @@ export class AppComponent implements OnInit, OnDestroy {
   public isDarkMode$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
     false
   );
+  public isLoading = false;
   private onDestroy$ = new Subject<void>();
   private materialTypographyClass = 'mat-typography';
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -43,6 +52,25 @@ export class AppComponent implements OnInit, OnDestroy {
       .subscribe((isDarkMode) => {
         this.setBodyClass(isDarkMode);
       });
+
+    this.router.events.subscribe((event) => {
+      switch (true) {
+        case event instanceof NavigationStart: {
+          this.isLoading = true;
+          break;
+        }
+
+        case event instanceof NavigationEnd:
+        case event instanceof NavigationCancel:
+        case event instanceof NavigationError: {
+          this.isLoading = false;
+          break;
+        }
+        default: {
+          break;
+        }
+      }
+    });
   }
 
   ngOnDestroy() {

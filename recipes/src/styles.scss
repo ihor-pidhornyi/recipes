@@ -38,53 +38,82 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+.container_positioned {
+  margin: 0 auto;
+  padding: 1.25rem;
+}
+
 .theme-light {
   @include custom-theme($recipes-theme);
 
+  $primaryLight: mat.get-color-from-palette($recipes-primary-light);
+  $contrastPrimaryLight: mat.get-contrast-color-from-palette($recipes-primary-light, 600);
+  $contrastBackgroundLight: #000000DD;
+
   .card {
     &_active {
-      background-color: mat.get-color-from-palette($recipes-primary-light) !important;
+      background-color: $primaryLight !important;
     }
 
     &_active, &_active mat-card-subtitle {
-      color: mat.get-contrast-color-from-palette($recipes-primary-light, 600) !important;
+      color: $contrastPrimaryLight !important;
     }
   }
 
   .icon-button__content {
-    color: mat.get-color-from-palette($recipes-primary-light) !important;
+    color: $primaryLight !important;
   }
 
   .nav {
-    background-color: mat.get-color-from-palette($recipes-primary-light) !important;
+    background-color: $primaryLight !important;
+  }
+
+  .tab_active {
+    opacity: 1;
+  }
+
+  .contrast-logo {
+    fill: $contrastBackgroundLight;
   }
 }
 
 .theme-dark {
   @include custom-theme($recipes-theme-dark);
 
+  $primaryDark: mat.get-color-from-palette($recipes-primary-dark);
+  $contrastPrimaryDark: mat.get-contrast-color-from-palette($recipes-primary-dark, 400);
+  $contrastBackgroundDark: #fff;
+
   h1, h2, h3, h4, h5, h6, input, textarea, div, p, span {
     &:not([class^=mat]) {
-      color: mat.get-contrast-color-from-palette($recipes-primary-dark, 400);
+      color: $contrastPrimaryDark;
     }
   }
 
   .card {
     &_active {
-      background-color: mat.get-color-from-palette($recipes-primary-dark) !important;
+      background-color: $primaryDark !important;
     }
 
     &_active, &_active mat-card-subtitle {
-      color: mat.get-contrast-color-from-palette($recipes-primary-dark, 400) !important;
+      color: $contrastPrimaryDark !important;
     }
   }
 
   .icon-button__content {
-    color: mat.get-color-from-palette($recipes-primary-dark) !important;
+    color: $primaryDark !important;
   }
 
   .nav {
-    background-color: mat.get-color-from-palette($recipes-primary-dark) !important;
+    background-color: $primaryDark !important;
+  }
+
+  .tab_active {
+    opacity: 1;
+  }
+
+  .contrast-logo {
+    fill: $contrastBackgroundDark;
   }
 }
 

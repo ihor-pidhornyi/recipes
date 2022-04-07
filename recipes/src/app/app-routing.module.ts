@@ -5,7 +5,12 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'recipes',
+    redirectTo: 'auth',
+  },
+  {
+    path: 'auth',
+    loadChildren: () =>
+      import('./auth/auth.module').then((m) => m.AuthModule)
   },
   {
     path: 'shopping',
@@ -19,7 +24,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'shopping',
+    redirectTo: 'recipes',
   },
 ];
 
